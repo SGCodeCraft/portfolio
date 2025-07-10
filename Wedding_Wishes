@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💑 Happy Anniversary 💖</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }body {
+  background: linear-gradient(135deg, #17f803, #f73500);
+  font-family: 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+.center {
+  position: relative;
+  top: 50vh;
+  transform: translateY(-50%);
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2em;
+  color: #ff0000;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid white;
+  width: 0;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: white; }
+}
+
+.gift-btn {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 16px;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gift-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+.gift-box {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url('photo.jpg') center/cover no-repeat;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
+  text-align: center;
+  z-index: 10;
+  width: 85%;
+  max-width: 360px;
+  color: #fff;
+}
+
+.gift-box h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #fff;
+  text-shadow: 1px 1px 3px #000;
+}
+
+.gift-box p {
+  font-size: 16px;
+  margin-top: 10px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  margin: 15px auto;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+  </style>
+</head>
+<body><audio id="music" autoplay loop>
+  <source src="anniversary_audio.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio><canvas id="confetti"></canvas>
+
+<div class="center">
+  <h1 id="typing">Happy 17th Anniversary Didi & Jiju 💕</h1>
+  <button class="gift-btn" onclick="showGift()">💌 Open Your Surprise</button>
+</div><div class="gift-box" id="giftBox">
+  <img src="front.jpg" alt="Didi & Jiju" class="photo" />
+  <h2>🌹 17 Years of Love & Togetherness 🌹</h2>
+  <p>
+    May your journey continue to be filled with laughter, joy, and endless love.<br>
+    Wishing you both many more beautiful years together.<br><br>
+    — With love, from your younger brother Suraj ❤️
+  </p>
+</div><script>
+  function showGift() {
+    document.getElementById("giftBox").style.display = "block";
+    document.getElementById("music").play();
+  }
+
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const confetti = Array.from({ length: 150 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height - canvas.height,
+    r: Math.random() * 6 + 4,
+    d: Math.random() * 10 + 5,
+    color: `hsl(${Math.random() * 360}, 100%, 60%)`
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < confetti.length; i++) {
+      const c = confetti[i];
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+      ctx.fillStyle = c.color;
+      ctx.fill();
+    }
+    update();
+    requestAnimationFrame(draw);
+  }
+
+  function update() {
+    for (let i = 0; i < confetti.length; i++) {
+      const c = confetti[i];
+      c.y += c.d * 0.1;
+      if (c.y > canvas.height) {
+        c.y = -10;
+        c.x = Math.random() * canvas.width;
+      }
+    }
+  }
+
+  draw();
+
+  const typing = document.getElementById("typing");
+  function restartTyping() {
+    typing.style.animation = "none";
+    typing.offsetHeight;
+    typing.style.animation = "typing 5s steps(40, end), blink 0.75s step-end infinite";
+  }
+  setInterval(restartTyping, 8000);
+  typing.style.animation = "typing 5s steps(40, end), blink 0.75s step-end infinite";
+</script></body>
+</html>
